@@ -1,4 +1,4 @@
-package internetshop.dao;
+package mate.academy.internetshop.dao;
 
 import mate.academy.internetshop.model.Bucket;
 import mate.academy.internetshop.model.Item;

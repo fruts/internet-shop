@@ -1,4 +1,4 @@
-package internetshop.model;
+package mate.academy.internetshop.model;
 
 public class User {
     private Long id;

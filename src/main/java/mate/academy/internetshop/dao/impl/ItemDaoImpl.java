@@ -1,4 +1,4 @@
-package internetshop.dao.impl;
+package mate.academy.internetshop.dao.impl;
 
 import mate.academy.internetshop.dao.ItemDao;
 import mate.academy.internetshop.dao.Storage;

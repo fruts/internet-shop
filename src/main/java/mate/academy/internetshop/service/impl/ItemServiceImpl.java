@@ -1,4 +1,4 @@
-package internetshop.service.impl;
+package mate.academy.internetshop.service.impl;
 
 import mate.academy.internetshop.dao.ItemDao;
 import mate.academy.internetshop.lib.Inject;

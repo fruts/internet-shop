@@ -1,4 +1,4 @@
-package internetshop;
+package mate.academy.internetshop;
 
 import mate.academy.internetshop.lib.Injector;
 import mate.academy.internetshop.model.Item;
