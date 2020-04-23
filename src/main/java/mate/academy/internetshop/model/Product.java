@@ -1,7 +1,5 @@
 package mate.academy.internetshop.model;
 
-import java.math.BigDecimal;
-
 public class Product {
     private Long id;
     private String name;
@@ -38,7 +36,8 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product{" + "id=" + id
+        return "Product{"
+                + "id=" + id
                 + ", name='" + name + '\''
                 + ", price=" + price + '}';
     }

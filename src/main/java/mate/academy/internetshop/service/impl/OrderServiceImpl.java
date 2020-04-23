@@ -9,8 +9,8 @@ import mate.academy.internetshop.lib.Service;
 import mate.academy.internetshop.model.Order;
 import mate.academy.internetshop.model.Product;
 import mate.academy.internetshop.model.User;
-import mate.academy.internetshop.service.ShoppingCartService;
 import mate.academy.internetshop.service.OrderService;
+import mate.academy.internetshop.service.ShoppingCartService;
 
 @Service
 public class OrderServiceImpl implements OrderService {

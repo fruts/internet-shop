@@ -2,9 +2,9 @@ package mate.academy.internetshop.dao;
 
 import java.util.ArrayList;
 import java.util.List;
-import mate.academy.internetshop.model.ShoppingCart;
 import mate.academy.internetshop.model.Order;
 import mate.academy.internetshop.model.Product;
+import mate.academy.internetshop.model.ShoppingCart;
 import mate.academy.internetshop.model.User;
 
 public class Storage {

@@ -1,7 +1,6 @@
 package mate.academy.internetshop.model;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Order {
     private List<Product> products;
@@ -27,11 +26,10 @@ public class Order {
 
     @Override
     public String toString() {
-        return "Order{" +
-                "products=" + products +
-                ", id=" + id +
-                ", user=" + user +
-                '}';
+        return "Order{"
+                + "products=" + products
+                + ", id=" + id
+                + ", user=" + user + '}';
     }
 
     public void setId(Long id) {

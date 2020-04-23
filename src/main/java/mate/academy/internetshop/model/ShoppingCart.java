@@ -2,7 +2,6 @@ package mate.academy.internetshop.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ShoppingCart {
     private List<Product> products;
@@ -40,10 +39,9 @@ public class ShoppingCart {
 
     @Override
     public String toString() {
-        return "ShoppingCart{" +
-                "products=" + products +
-                ", id=" + id +
-                ", user=" + user +
-                '}';
+        return "ShoppingCart{"
+                + "products=" + products
+                + ", id=" + id
+                + ", user=" + user + '}';
     }
 }
