@@ -1,28 +1,29 @@
 package mate.academy.internetshop;
 
+import java.math.BigDecimal;
 import mate.academy.internetshop.lib.Injector;
-import mate.academy.internetshop.model.Item;
-import mate.academy.internetshop.service.ItemService;
+import mate.academy.internetshop.model.Product;
+import mate.academy.internetshop.service.ProductService;
 
 public class Main {
     private static Injector injector = Injector.getInstance("mate.academy.internetshop");
 
     public static void main(String[] args) {
-        ItemService itemService = (ItemService) injector.getInstance(ItemService.class);
-        Item table = new Item("Table", 25.5);
-        Item chair = new Item("Chair", 15);
-        Item laptop = new Item("Laptop", 400);
-
-        itemService.create(table);
-        itemService.create(chair);
-        itemService.create(laptop);
-        System.out.println(itemService.get(table.getId()));
-        System.out.println(itemService.getAll());
-        System.out.println(itemService.delete(table.getId()));
-        System.out.println(itemService.getAll());
-        Item newChair = new Item("SuperChair2000", 200);
-        itemService.update(chair, newChair);
-        System.out.println(itemService.getAll());
+        ProductService productService = (ProductService) injector.getInstance(ProductService.class);
+        Product table = new Product("Table", new BigDecimal(25.5));
+        Product chair = new Product("Chair", new BigDecimal(15.5));
+        Product laptop = new Product("Laptop", new BigDecimal(400));
+        productService.create(table);
+        productService.create(chair);
+        productService.create(laptop);
+        System.out.println(productService.get(table.getId()));
+        System.out.println(productService.getAll());
+        System.out.println(productService.delete(table.getId()));
+        System.out.println(productService.getAll());
+        chair.setPrice(new BigDecimal(50));
+        System.out.println(chair);
+        productService.update(chair);
+        System.out.println(productService.getAll());
     }
 
 }
