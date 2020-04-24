@@ -9,7 +9,6 @@ import mate.academy.internetshop.service.ProductService;
 
 @Service
 public class ProductServiceImpl implements ProductService {
-
     @Inject
     private ProductDao productDao;
 

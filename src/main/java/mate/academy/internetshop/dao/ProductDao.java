@@ -5,7 +5,6 @@ import java.util.Optional;
 import mate.academy.internetshop.model.Product;
 
 public interface ProductDao {
-
     Product create(Product product);
 
     Optional<Product> get(Long id);

@@ -4,8 +4,13 @@ import java.util.List;
 
 public class Order {
     private List<Product> products;
-    private Long orderId;
+    private Long id;
     private User user;
+
+    public Order(List<Product> products, User user) {
+        this.products = products;
+        this.user = user;
+    }
 
     public List<Product> getProducts() {
         return products;
@@ -15,12 +20,20 @@ public class Order {
         this.products = products;
     }
 
-    public Long getOrderId() {
-        return orderId;
+    public Long getId() {
+        return id;
     }
 
-    public void setOrderId(Long orderId) {
-        this.orderId = orderId;
+    @Override
+    public String toString() {
+        return "Order{"
+                + "products=" + products
+                + ", id=" + id
+                + ", user=" + user + '}';
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public User getUser() {
