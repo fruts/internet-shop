@@ -4,6 +4,16 @@
     <title>Title</title>
 </head>
 <body>
-<h1>Hello world!</h1>
+<table border="1">
+    <tr>
+        <th><a href="/registration">Register </a></th>
+        <th><a href="/products/add"> add product </a></th>
+        <th><a href="/products/all"> all products </a></th>
+        <th><a href="/cart"> shopping cart </a></th>
+        <th><a href="/users/all">all users</a></th>
+    </tr>
+</table>
+
+
 </body>
 </html>
