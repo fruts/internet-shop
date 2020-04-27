@@ -43,7 +43,7 @@ public class Main {
 
         ShoppingCartService shoppingCartService =
                 (ShoppingCartService) injector.getInstance(ShoppingCartService.class);
-        ShoppingCart serhiiCart = shoppingCartService.getByUserId(serhii.getId());
+        ShoppingCart serhiiCart = shoppingCartService.get(serhii.getId());
         shoppingCartService.addProduct(serhiiCart, chair);
         shoppingCartService.addProduct(serhiiCart, table);
         System.out.println(shoppingCartService.getAllProducts(serhiiCart));
@@ -54,6 +54,6 @@ public class Main {
         OrderService orderService = (OrderService) injector.getInstance(OrderService.class);
         Order serhiiOrder = orderService
                 .completeOrder(shoppingCartService.getAllProducts(serhiiCart), serhii);
-        System.out.println(shoppingCartService.getByUserId(serhii.getId()));
+        System.out.println(shoppingCartService.get(serhii.getId()));
     }
 }
