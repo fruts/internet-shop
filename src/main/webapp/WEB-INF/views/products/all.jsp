@@ -6,6 +6,9 @@
 </head>
 <body>
 <h1>All users</h1>
+<button type="button">
+    <a href="/index">go to main</a>
+</button>
 <table border="1">
     <tr>
         <th>ID</th>
@@ -26,7 +29,7 @@
                 <c:out value="${product.price}"/>
             </td>
             <td>
-                <a href="/addtocart?id=${product.id}">add to cart</a>
+                <a href="/addtoshoppingcart?id=${product.id}">add to cart</a>
             </td>
             <td>
                 <a href="/deleteproduct?id=${product.id}">X</a>
@@ -34,8 +37,5 @@
         </tr>
     </c:forEach>
 </table>
-<button type="button">
-    <a href="/index">go to main</a>
-</button>
 </body>
 </html>

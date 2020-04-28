@@ -11,6 +11,7 @@
         <th>Id</th>
         <th>Name</th>
         <th>Price</th>
+        <th>Delete</th>
     </tr>
     <c:forEach var="product" items="${products}">
         <tr>
@@ -23,9 +24,15 @@
             <td>
                 <c:out value="${product.price}"/>
             </td>
+            <td>
+                <a href="/deleteproductfromshoppingcart?id=${product.id}">X</a>
+            </td>
         </tr>
     </c:forEach>
 </table>
+<button type="button">
+    <a href="/ordershoppingcart">order</a>
+</button>
 <button type="button">
     <a href="/index">go to main</a>
 </button>
