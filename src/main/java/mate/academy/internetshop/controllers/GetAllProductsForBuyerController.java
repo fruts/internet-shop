@@ -16,7 +16,8 @@ public class GetAllProductsForBuyerController extends HttpServlet {
             (ProductService) INJECTOR.getInstance(ProductService.class);
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
         List<Product> products = productService.getAll();
         req.setAttribute("products", products);
         req.getRequestDispatcher("/WEB-INF/views/products/buy.jsp").forward(req, resp);
