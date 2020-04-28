@@ -31,7 +31,7 @@
     </c:forEach>
 </table>
 <button type="button">
-    <a href="/ordershoppingcart">order</a>
+    <a href="/order/complete">order</a>
 </button>
 <button type="button">
     <a href="/index">go to main</a>
