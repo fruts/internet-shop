@@ -18,6 +18,5 @@
 
     <button type="submit">register</button>
 </form>
-
 </body>
 </html>

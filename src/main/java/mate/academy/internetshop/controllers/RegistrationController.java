@@ -7,11 +7,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import mate.academy.internetshop.lib.Injector;
 import mate.academy.internetshop.model.User;
+import mate.academy.internetshop.service.ShoppingCartService;
 import mate.academy.internetshop.service.UserService;
 
 public class RegistrationController extends HttpServlet {
     private static final Injector injector = Injector.getInstance("mate.academy");
     private UserService userService = (UserService) injector.getInstance(UserService.class);
+    private ShoppingCartService shoppingCartService =
+            (ShoppingCartService) injector.getInstance(ShoppingCartService.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -30,6 +33,7 @@ public class RegistrationController extends HttpServlet {
         if (password.equals(repPassword)) {
             User newUser = new User(name, login, password);
             userService.create(newUser);
+            shoppingCartService.get(newUser.getId());
             resp.sendRedirect(req.getContextPath() + "/");
         } else {
             req.setAttribute("message", "Your passwords are not equals, try again");
