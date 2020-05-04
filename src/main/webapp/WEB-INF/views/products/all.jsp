@@ -5,13 +5,15 @@
     <title>All products</title>
 </head>
 <body>
-<h1>All users</h1>
+<h1>All products</h1>
+<button type="button">
+    <a href="/index">go to main</a>
+</button>
 <table border="1">
     <tr>
         <th>ID</th>
         <th>Name</th>
         <th>Price</th>
-        <th>Add to cart</th>
         <th>Delete</th>
     </tr>
     <c:forEach var="product" items="${products}">
@@ -26,16 +28,13 @@
                 <c:out value="${product.price}"/>
             </td>
             <td>
-                <a href="/addtocart?id=${product.id}">add to cart</a>
-            </td>
-            <td>
                 <a href="/deleteproduct?id=${product.id}">X</a>
             </td>
         </tr>
     </c:forEach>
 </table>
 <button type="button">
-    <a href="/index">go to main</a>
+    <a href="/products/add">add new product</a>
 </button>
 </body>
 </html>

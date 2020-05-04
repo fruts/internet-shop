@@ -9,8 +9,10 @@
         <th><a href="/registration">Register </a></th>
         <th><a href="/products/add"> add product </a></th>
         <th><a href="/products/all"> all products </a></th>
+        <th><a href="/products/buy"> for buyer </a></th>
         <th><a href="/shoppingcart"> shopping cart </a></th>
-        <th><a href="/users/all">all users</a></th>
+        <th><a href="/users/all"> all users </a></th>
+        <th><a href="/orders/all"> all orders </a></th>
     </tr>
 </table>
 </body>

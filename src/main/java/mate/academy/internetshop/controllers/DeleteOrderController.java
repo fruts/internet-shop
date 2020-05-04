@@ -6,18 +6,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import mate.academy.internetshop.lib.Injector;
-import mate.academy.internetshop.service.ShoppingCartService;
+import mate.academy.internetshop.service.OrderService;
 
-public class GetShoppingCartController extends HttpServlet {
-    private static final Long USER_ID = 1L;
+public class DeleteOrderController extends HttpServlet {
     private static final Injector INJECTOR = Injector.getInstance("mate.academy");
-    private ShoppingCartService shoppingCartService =
-            (ShoppingCartService) INJECTOR.getInstance(ShoppingCartService.class);
+    private OrderService orderService =
+            (OrderService) INJECTOR.getInstance(OrderService.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        req.setAttribute("products", shoppingCartService.getByUserId(USER_ID).getProducts());
-        req.getRequestDispatcher("/WEB-INF/views/shoppingcart/all.jsp").forward(req, resp);
+        String id = req.getParameter("id");
+        orderService.delete(Long.valueOf(id));
+        resp.sendRedirect(req.getContextPath() + "/orders/all");
     }
 }
