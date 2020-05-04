@@ -34,7 +34,7 @@ public class RegistrationController extends HttpServlet {
             User newUser = new User(name, login, password);
             userService.create(newUser);
             shoppingCartService.getByUserId(newUser.getId());
-            resp.sendRedirect(req.getContextPath() + "/login");
+            resp.sendRedirect("/login");
         } else {
             req.setAttribute("message", "Your passwords are not equals, try again");
             req.getRequestDispatcher("/WEB-INF/views/registration.jsp").forward(req, resp);
