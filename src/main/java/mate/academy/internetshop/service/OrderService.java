@@ -8,5 +8,5 @@ import mate.academy.internetshop.model.User;
 public interface OrderService extends GenericService<Order, Long> {
     Order completeOrder(List<Product> products, User user);
 
-    List<Order> getUserOrders(User user);
+    List<Order> getUserOrders(Long userId);
 }
