@@ -33,7 +33,7 @@ public class RegistrationController extends HttpServlet {
         if (password.equals(repPassword)) {
             User newUser = new User(name, login, password);
             userService.create(newUser);
-            shoppingCartService.get(newUser.getId());
+            shoppingCartService.getByUserId(newUser.getId());
             resp.sendRedirect(req.getContextPath() + "/login");
         } else {
             req.setAttribute("message", "Your passwords are not equals, try again");

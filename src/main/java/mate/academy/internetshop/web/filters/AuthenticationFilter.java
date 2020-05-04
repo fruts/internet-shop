@@ -33,7 +33,7 @@ public class AuthenticationFilter implements Filter {
             chain.doFilter(req, resp);
             return;
         }
-        if (userId == null || userService.get(userId) == null) {
+        if (userId == null || userService.getByUserId(userId) == null) {
             resp.sendRedirect("/login");
             return;
         }

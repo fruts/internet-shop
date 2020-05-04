@@ -24,7 +24,7 @@ public class Main {
         productService.create(chair);
         productService.create(table);
 
-        System.out.println(productService.get(chair.getId()));
+        System.out.println(productService.getByUserId(chair.getId()));
         System.out.println(productService.getAll());
 
         Product badChair = new Product("need to remove it", 20);
@@ -36,14 +36,14 @@ public class Main {
         User serhii = new User("Serhii", "1234", "0000");
         userService.create(serhii);
         User badGuy = new User("Bad", "Guy", "666");
-        System.out.println(userService.get(serhii.getId()));
+        System.out.println(userService.getByUserId(serhii.getId()));
         System.out.println(userService.getAll());
         userService.delete(badGuy.getId());
         System.out.println(userService.getAll());
 
         ShoppingCartService shoppingCartService =
                 (ShoppingCartService) injector.getInstance(ShoppingCartService.class);
-        ShoppingCart serhiiCart = shoppingCartService.get(serhii.getId());
+        ShoppingCart serhiiCart = shoppingCartService.getByUserId(serhii.getId());
         shoppingCartService.addProduct(serhiiCart, chair);
         shoppingCartService.addProduct(serhiiCart, table);
         System.out.println(shoppingCartService.getAllProducts(serhiiCart));
@@ -54,6 +54,6 @@ public class Main {
         OrderService orderService = (OrderService) injector.getInstance(OrderService.class);
         Order serhiiOrder = orderService
                 .completeOrder(shoppingCartService.getAllProducts(serhiiCart), serhii);
-        System.out.println(shoppingCartService.get(serhii.getId()));
+        System.out.println(shoppingCartService.getByUserId(serhii.getId()));
     }
 }
