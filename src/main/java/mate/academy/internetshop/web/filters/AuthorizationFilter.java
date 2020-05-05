@@ -60,9 +60,8 @@ public class AuthorizationFilter implements Filter {
         if (isAuthorized(user, protectedUrls.get(requestedUrl))) {
             chain.doFilter(req, resp);
             return;
-        } else {
-            req.getRequestDispatcher("/WEB-INF/views/accessdenied.jsp").forward(req, resp);
         }
+        req.getRequestDispatcher("/WEB-INF/views/accessdenied.jsp").forward(req, resp);
     }
 
     @Override
