@@ -1,7 +1,7 @@
 package mate.academy.internetshop.controllers;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -36,7 +36,7 @@ public class RegistrationController extends HttpServlet {
             User newUser = new User(name, login, password);
             userService.create(newUser);
             shoppingCartService.getByUserId(newUser.getId());
-            newUser.setRoles(List.of(Role.of("USER")));
+            newUser.setRoles(Set.of(Role.of("USER")));
             resp.sendRedirect("/login");
         } else {
             req.setAttribute("message", "Your passwords are not equals, try again");

@@ -1,7 +1,7 @@
 package mate.academy.internetshop.controllers;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,11 +19,11 @@ public class InjectDataController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         User admin = new User("admin", "admin", "123");
-        admin.setRoles(List.of(Role.of("ADMIN")));
+        admin.setRoles(Set.of(Role.of("ADMIN")));
         User user = new User("user", "user", "123");
-        user.setRoles(List.of(Role.of("USER")));
+        user.setRoles(Set.of(Role.of("USER")));
         User host = new User("host", "host", "123");
-        host.setRoles(List.of(Role.of("ADMIN"), Role.of("USER")));
+        host.setRoles(Set.of(Role.of("ADMIN"), Role.of("USER")));
         userService.create(admin);
         userService.create(user);
         userService.create(host);
