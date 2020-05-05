@@ -13,6 +13,8 @@
         <th><a href="/shoppingcart"> shopping cart </a></th>
         <th><a href="/users/all"> all users </a></th>
         <th><a href="/orders/all"> all orders </a></th>
+        <th><a href="/logout"> logout </a></th>
+        <th><a href="/injectdata"> inject data </a></th>
     </tr>
 </table>
 </body>
