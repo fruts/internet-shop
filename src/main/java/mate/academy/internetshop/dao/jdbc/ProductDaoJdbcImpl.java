@@ -17,7 +17,6 @@ import org.apache.log4j.Logger;
 
 @Dao
 public class ProductDaoJdbcImpl implements ProductDao {
-    private static final Logger LOGGER = Logger.getLogger(LoginController.class);
 
     @Override
     public Product create(Product product) {
