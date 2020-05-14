@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import mate.academy.internetshop.lib.Injector;
 import mate.academy.internetshop.model.Role;
+import mate.academy.internetshop.model.ShoppingCart;
 import mate.academy.internetshop.model.User;
 import mate.academy.internetshop.service.ShoppingCartService;
 import mate.academy.internetshop.service.UserService;
@@ -35,7 +36,7 @@ public class RegistrationController extends HttpServlet {
         if (password.equals(repPassword)) {
             User newUser = new User(name, login, password);
             userService.create(newUser);
-            shoppingCartService.getByUserId(newUser.getId());
+            shoppingCartService.create(new ShoppingCart(newUser.getId()));
             newUser.setRoles(Set.of(Role.of("USER")));
             resp.sendRedirect("/login");
         } else {

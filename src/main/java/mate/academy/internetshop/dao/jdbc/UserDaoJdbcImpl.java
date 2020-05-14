@@ -38,22 +38,23 @@ public class UserDaoJdbcImpl implements UserDao {
     }
 
     @Override
-    public User create(User element) {
+    public User create(User user) {
         try (Connection connection = ConnectionUtil.getConnection()) {
             String query = "INSERT INTO users (name, login, password) VALUES (?, ?, ?);";
             PreparedStatement statement = connection.prepareStatement(query,
                     PreparedStatement.RETURN_GENERATED_KEYS);
-            statement.setString(1, element.getName());
-            statement.setString(2, element.getLogin());
-            statement.setString(3, element.getPassword());
+            statement.setString(1, user.getName());
+            statement.setString(2, user.getLogin());
+            statement.setString(3, user.getPassword());
             statement.executeUpdate();
             ResultSet resultSet = statement.getGeneratedKeys();
-            resultSet.next();
-            element.setId(resultSet.getLong(1));
-            insertUsersRoles(element);
-            return element;
+            if (resultSet.next()) {
+                user.setId(resultSet.getLong(1));
+                insertUsersRoles(user);
+            }
+            return user;
         } catch (SQLException e) {
-            throw new DataProcessingException("Unable to create " + element, e);
+            throw new DataProcessingException("Unable to create " + user, e);
         }
     }
 
@@ -127,21 +128,11 @@ public class UserDaoJdbcImpl implements UserDao {
     }
 
     private void insertUsersRoles(User user) throws SQLException {
-        String selectRoleIdQuery = "SELECT role_id FROM roles WHERE role_name = ?";
-        String insertUsersRolesQuery = "INSERT INTO users_roles (user_id, role_id) VALUES (?, ?);";
-        try (Connection connection = ConnectionUtil.getConnection()) {
-            for (Role role : user.getRoles()) {
-                PreparedStatement selectStatement =
-                        connection.prepareStatement(selectRoleIdQuery);
-                selectStatement.setString(1, role.getRoleName().name());
-                ResultSet resultSet = selectStatement.executeQuery();
-                resultSet.next();
-                PreparedStatement insertStatement =
-                        connection.prepareStatement(insertUsersRolesQuery);
-                insertStatement.setLong(1, user.getId());
-                insertStatement.setLong(2, resultSet.getLong("role_id"));
-                insertStatement.executeUpdate();
-            }
+        try (Connection con = ConnectionUtil.getConnection()) {
+            String query = "INSERT INTO users_roles (user_id, role_id) VALUES (?, 1);";
+            PreparedStatement statement = con.prepareStatement(query);
+            statement.setLong(1, user.getId());
+            statement.executeUpdate();
         }
     }
 
