@@ -23,14 +23,14 @@ public class OrderServiceImpl implements OrderService {
     public Order completeOrder(List<Product> products, User user) {
         List<Product> productsToOrder = new ArrayList<>(products);
         shoppingCartService.clear(shoppingCartService.getByUserId(user.getId()));
-        Order newOrder = new Order(productsToOrder, user);
+        Order newOrder = new Order(productsToOrder, user.getId());
         return orderDao.create(newOrder);
     }
 
     @Override
     public List<Order> getUserOrders(Long userId) {
         return orderDao.getAll().stream()
-                .filter(order -> order.getUser().getId().equals(userId))
+                .filter(order -> order.getUserId().equals(userId))
                 .collect(Collectors.toList());
     }
 

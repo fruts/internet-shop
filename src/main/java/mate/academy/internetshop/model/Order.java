@@ -5,11 +5,11 @@ import java.util.List;
 public class Order {
     private List<Product> products;
     private Long id;
-    private User user;
+    private Long userId;
 
-    public Order(List<Product> products, User user) {
+    public Order(List<Product> products, Long userId) {
         this.products = products;
-        this.user = user;
+        this.userId = userId;
     }
 
     public List<Product> getProducts() {
@@ -29,18 +29,18 @@ public class Order {
         return "Order{"
                 + "products=" + products
                 + ", id=" + id
-                + ", user=" + user + '}';
+                + ", user=" + userId + '}';
     }
 
     public void setId(Long id) {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }
