@@ -18,7 +18,6 @@ import mate.academy.internetshop.util.ConnectionUtil;
 
 @Dao
 public class UserDaoJdbcImpl implements UserDao {
-
     @Override
     public Optional<User> findByLogin(String login) {
         try (Connection connection = ConnectionUtil.getConnection()) {
@@ -33,7 +32,7 @@ public class UserDaoJdbcImpl implements UserDao {
             }
             return Optional.empty();
         } catch (SQLException e) {
-            throw new DataProcessingException("Unable to get user with login " + login, e);
+            throw new DataProcessingException("Unable to get user with login ", e);
         }
     }
 
@@ -54,7 +53,7 @@ public class UserDaoJdbcImpl implements UserDao {
             }
             return user;
         } catch (SQLException e) {
-            throw new DataProcessingException("Unable to create " + user, e);
+            throw new DataProcessingException("Unable to create ", e);
         }
     }
 
@@ -72,7 +71,7 @@ public class UserDaoJdbcImpl implements UserDao {
             }
             return Optional.empty();
         } catch (SQLException e) {
-            throw new DataProcessingException("Unable to get user with ID " + id, e);
+            throw new DataProcessingException("Unable to get user with ID ", e);
         }
     }
 
@@ -95,21 +94,21 @@ public class UserDaoJdbcImpl implements UserDao {
     }
 
     @Override
-    public User update(User element) {
+    public User update(User user) {
         try (Connection connection = ConnectionUtil.getConnection()) {
             String query = "UPDATE users SET name = ?, login = ?, password = ? "
                     + "WHERE user_id = ?;";
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1, element.getName());
-            statement.setString(2, element.getLogin());
-            statement.setString(3, element.getPassword());
-            statement.setLong(4, element.getId());
+            statement.setString(1, user.getName());
+            statement.setString(2, user.getLogin());
+            statement.setString(3, user.getPassword());
+            statement.setLong(4, user.getId());
             statement.executeUpdate();
-            deleteUserFromUsersRoles(element.getId());
-            insertUsersRoles(element);
-            return element;
+            deleteUserFromUsersRoles(user.getId());
+            insertUsersRoles(user);
+            return user;
         } catch (SQLException e) {
-            throw new DataProcessingException("Unable to update " + element, e);
+            throw new DataProcessingException("Unable to update ", e);
         }
     }
 
@@ -123,7 +122,7 @@ public class UserDaoJdbcImpl implements UserDao {
             int numberOfRowsDeleted = statement.executeUpdate();
             return numberOfRowsDeleted != 0;
         } catch (SQLException e) {
-            throw new DataProcessingException("Unable to delete user with ID " + id, e);
+            throw new DataProcessingException("Unable to delete user with ID ", e);
         }
     }
 
@@ -137,13 +136,10 @@ public class UserDaoJdbcImpl implements UserDao {
     }
 
     private User getUserByResultSet(ResultSet resultSet) throws SQLException {
-        Long id = resultSet.getLong("user_id");
-        String name = resultSet.getString("name");
-        String login = resultSet.getString("login");
-        String password = resultSet.getString("password");
-        User user = new User(name, login, password);
-        user.setId(id);
-        return user;
+        return new User(resultSet.getLong("user_id"),
+                resultSet.getString("name"),
+                resultSet.getString("login"),
+                resultSet.getString("password"));
     }
 
     private Set<Role> getUsersRolesById(Long userId) throws SQLException {
