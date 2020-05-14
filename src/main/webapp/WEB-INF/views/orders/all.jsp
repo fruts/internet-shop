@@ -20,10 +20,7 @@
                 <c:out value="${order.id}"/>
             </td>
             <td>
-                <c:out value="${order.user.id}"/>
-            </td>
-            <td>
-                <c:out value="${order.user.name}"/>
+                <c:out value="${order.userId}"/>
             </td>
             <td>
                 <a href="${pageContext.request.contextPath}/order?id=${order.id}">

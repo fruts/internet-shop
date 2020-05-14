@@ -7,8 +7,7 @@
 <body>
 <h1>Order info</h1>
 Order id: <c:out value="${order.id}"/>
-Buyer Name: <c:out value="${order.user.name}"/>
-Buyer id: <c:out value="${order.user.id}"/>
+Buyer id: <c:out value="${order.userId}"/>
 <h1>Order list</h1>
 <table border="1">
     <tr>
