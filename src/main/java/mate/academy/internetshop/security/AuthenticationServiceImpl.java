@@ -5,6 +5,7 @@ import mate.academy.internetshop.lib.Inject;
 import mate.academy.internetshop.lib.Service;
 import mate.academy.internetshop.model.User;
 import mate.academy.internetshop.service.UserService;
+import mate.academy.internetshop.util.HashUtil;
 
 @Service
 public class AuthenticationServiceImpl implements AuthenticationService {
@@ -18,7 +19,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .orElseThrow(()
                         -> new AuthenticationException("Incorrect login or password"));
 
-        if (userFromDB.getPassword().equals(password)) {
+        if (HashUtil.hashPassword(password, userFromDB.getSalt()).equals(password)) {
             return userFromDB;
         }
         throw new AuthenticationException("Incorrect login or password");
