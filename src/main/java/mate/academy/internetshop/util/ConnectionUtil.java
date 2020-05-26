@@ -20,7 +20,7 @@ public class ConnectionUtil {
         try {
             Class.forName("com.mysql.jdbc.Driver");
         } catch (ClassNotFoundException e) {
-            throw new RuntimeException("Can't find MySQL driver", e);
+            throw new RuntimeException("Can't find MySQL drivers", e);
         }
     }
 
