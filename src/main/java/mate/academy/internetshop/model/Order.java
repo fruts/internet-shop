@@ -29,14 +29,6 @@ public class Order {
         return id;
     }
 
-    @Override
-    public String toString() {
-        return "Order{"
-                + "products=" + products
-                + ", id=" + id
-                + ", user=" + userId + '}';
-    }
-
     public void setId(Long id) {
         this.id = id;
     }
@@ -47,5 +39,13 @@ public class Order {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{"
+                + "products=" + products
+                + ", id=" + id
+                + ", user=" + userId + '}';
     }
 }
