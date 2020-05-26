@@ -11,9 +11,11 @@ public class ConnectionUtil {
     private static final Logger LOGGER = Logger.getLogger(LoginController.class);
     private static final String URL =
             "jdbc:mysql://localhost:3306/internet_shop?serverTimezone=UTC";
+
     private ConnectionUtil() {
 
     }
+
     static {
         try {
             Class.forName("com.mysql.jdbc.Driver");
