@@ -18,7 +18,7 @@ public class AuthenticationFilter implements Filter {
     private UserService userService = (UserService) INJECTOR.getInstance(UserService.class);
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig) throws UnsupportedOperationException {
 
     }
 
@@ -41,7 +41,7 @@ public class AuthenticationFilter implements Filter {
     }
 
     @Override
-    public void destroy() {
+    public void destroy() throws UnsupportedOperationException {
 
     }
 }
