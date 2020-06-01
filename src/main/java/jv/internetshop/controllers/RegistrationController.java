@@ -35,10 +35,9 @@ public class RegistrationController extends HttpServlet {
 
         if (password.equals(repPassword)) {
             User newUser = new User(name, login, password);
-            newUser.setRoles(Set.of(Role.of("ADMIN")));
+            newUser.setRoles(Set.of(Role.of("USER")));
             userService.create(newUser);
             shoppingCartService.create(new ShoppingCart(newUser.getId()));
-            newUser.setRoles(Set.of(Role.of("USER")));
             resp.sendRedirect("/login");
         } else {
             req.setAttribute("message", "Your passwords are not equals, try again");
