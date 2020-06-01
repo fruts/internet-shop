@@ -50,7 +50,7 @@ public class UserDaoJdbcImpl implements UserDao {
             ResultSet resultSet = statement.getGeneratedKeys();
             if (resultSet.next()) {
                 user.setId(resultSet.getLong(1));
-                insertUsersRoles(user);
+                insertUsersRoles(user, connection);
             }
             return user;
         } catch (SQLException e) {
@@ -107,7 +107,7 @@ public class UserDaoJdbcImpl implements UserDao {
             statement.setLong(5, user.getId());
             statement.executeUpdate();
             deleteUserFromUsersRoles(user.getId());
-            insertUsersRoles(user);
+            insertUsersRoles(user, connection);
             return user;
         } catch (SQLException e) {
             throw new DataProcessingException("Unable to update ", e);
@@ -128,12 +128,22 @@ public class UserDaoJdbcImpl implements UserDao {
         }
     }
 
-    private void insertUsersRoles(User user) throws SQLException {
-        try (Connection con = ConnectionUtil.getConnection()) {
-            String query = "INSERT INTO users_roles (user_id, role_id) VALUES (?, 1);";
-            PreparedStatement statement = con.prepareStatement(query);
-            statement.setLong(1, user.getId());
-            statement.executeUpdate();
+    private void insertUsersRoles(User user, Connection connection) throws SQLException {
+        String selectRoleIdQuery = "SELECT role_id FROM roles WHERE role_name = ?";
+        String insertUsersRolesQuery = "INSERT INTO users_roles (user_id, role_id) VALUES (?, ?);";
+        try (PreparedStatement selectStatement
+                     = connection.prepareStatement(selectRoleIdQuery);
+             PreparedStatement insertStatement
+                     = connection.prepareStatement(insertUsersRolesQuery)) {
+            for (Role role : user.getRoles()) {
+                selectStatement.setString(1, role.getRoleName().name());
+                try (ResultSet resultSet = selectStatement.executeQuery()) {
+                    resultSet.next();
+                    insertStatement.setLong(1, user.getId());
+                    insertStatement.setLong(2, resultSet.getLong("role_id"));
+                    insertStatement.executeUpdate();
+                }
+            }
         }
     }
 
