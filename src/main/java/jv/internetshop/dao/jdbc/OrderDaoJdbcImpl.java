@@ -88,30 +88,32 @@ public class OrderDaoJdbcImpl implements OrderDao {
 
     @Override
     public boolean delete(Long id) {
-        String deleteOrderQuery = "DELETE FROM orders WHERE order_id = ?;";
-        try (Connection connection = ConnectionUtil.getConnection()) {
-            deleteOrderFromOrdersProducts(id);
-            PreparedStatement statement = connection.prepareStatement(deleteOrderQuery);
-            statement.setLong(1, id);
-            int numberOfRowsDeleted = statement.executeUpdate();
-            return numberOfRowsDeleted != 0;
-        } catch (SQLException e) {
-            throw new DataProcessingException("Unable to delete order with ID " + id, e);
+        String query = "DELETE FROM orders WHERE order_id = ?;";
+        return deleteById(id, query);
+    }
+
+    @Override
+    public List<Order> getUserOrders(Long userId) {
+        String query = "SELECT * FROM orders WHERE user_id = ?;";
+        List<Order> userOrders = new ArrayList<>();
+        try (Connection connection = ConnectionUtil.getConnection();
+                PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setLong(1, userId);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                userOrders.add(getCopyOfOrder(resultSet));
+            }
+            return userOrders;
+        } catch (SQLException ex) {
+            throw new DataProcessingException("Can't FIND product by ID "
+                    + userId + " in mySQL internet_shop", ex);
         }
     }
 
-    private void insertOrdersProducts(Order order) throws SQLException {
-        String insertOrdersProductsQuery = "INSERT INTO orders_products (order_id, product_id) "
-                + "VALUES (?, ?);";
-        try (Connection connection = ConnectionUtil.getConnection()) {
-            for (Product product : order.getProducts()) {
-                PreparedStatement insertStatement =
-                        connection.prepareStatement(insertOrdersProductsQuery);
-                insertStatement.setLong(1, order.getId());
-                insertStatement.setLong(2, product.getId());
-                insertStatement.executeUpdate();
-            }
-        }
+    private Order getCopyOfOrder(ResultSet resultSet) throws SQLException {
+        Long orderId = resultSet.getLong("order_id");
+        Long userId = resultSet.getLong("user_id");
+        return new Order(orderId, getProductsFromOrderId(orderId), userId);
     }
 
     private Order getOrderFromResultSet(ResultSet resultSet) throws SQLException {
@@ -146,6 +148,37 @@ public class OrderDaoJdbcImpl implements OrderDao {
             PreparedStatement statement = connection.prepareStatement(deleteOrderQuery);
             statement.setLong(1, orderId);
             statement.executeUpdate();
+        }
+    }
+
+    public boolean deleteProductFromOrder(Long id) {
+        String query = "DELETE FROM orders_products WHERE product_id = ?;";
+        return deleteById(id, query);
+    }
+
+    private boolean deleteById(Long id, String query) {
+        try (Connection connection = ConnectionUtil.getConnection()) {
+            deleteOrderFromOrdersProducts(id);
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setLong(1, id);
+            int numberOfRowsDeleted = statement.executeUpdate();
+            return numberOfRowsDeleted != 0;
+        } catch (SQLException ex) {
+            throw new DataProcessingException("Can't DELETE order in mySQL with ID " + id, ex);
+        }
+    }
+
+    private void insertOrdersProducts(Order order) throws SQLException {
+        String insertOrdersProductsQuery = "INSERT INTO orders_products (order_id, product_id) "
+                + "VALUES (?, ?);";
+        try (Connection connection = ConnectionUtil.getConnection()) {
+            for (Product product : order.getProducts()) {
+                PreparedStatement insertStatement =
+                        connection.prepareStatement(insertOrdersProductsQuery);
+                insertStatement.setLong(1, order.getId());
+                insertStatement.setLong(2, product.getId());
+                insertStatement.executeUpdate();
+            }
         }
     }
 }

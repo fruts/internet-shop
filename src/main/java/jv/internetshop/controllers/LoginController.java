@@ -7,9 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import jv.internetshop.exeptions.AuthenticationException;
-import jv.internetshop.security.AuthenticationService;
 import jv.internetshop.lib.Injector;
 import jv.internetshop.model.User;
+import jv.internetshop.security.AuthenticationService;
 import org.apache.log4j.Logger;
 
 public class LoginController extends HttpServlet {

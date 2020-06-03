@@ -16,9 +16,9 @@ import jv.internetshop.service.ShoppingCartService;
 import jv.internetshop.service.UserService;
 
 public class DeleteUserController extends HttpServlet {
+    private static final String USER_ID = "userId";
     private static final Injector INJECTOR = Injector.getInstance("jv");
     private UserService userService = (UserService) INJECTOR.getInstance(UserService.class);
-    private static final String USER_ID = "userId";
     private final ShoppingCartService shoppingCartService =
             (ShoppingCartService) INJECTOR.getInstance(ShoppingCartService.class);
     private final OrderService orderService =

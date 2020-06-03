@@ -133,8 +133,8 @@ public class UserDaoJdbcImpl implements UserDao {
         String insertUsersRolesQuery = "INSERT INTO users_roles (user_id, role_id) VALUES (?, ?);";
         try (PreparedStatement selectStatement
                      = connection.prepareStatement(selectRoleIdQuery);
-             PreparedStatement insertStatement
-                     = connection.prepareStatement(insertUsersRolesQuery)) {
+                PreparedStatement insertStatement
+                        = connection.prepareStatement(insertUsersRolesQuery)) {
             for (Role role : user.getRoles()) {
                 selectStatement.setString(1, role.getRoleName().name());
                 try (ResultSet resultSet = selectStatement.executeQuery()) {
