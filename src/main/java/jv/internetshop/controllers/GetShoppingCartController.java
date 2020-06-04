@@ -11,7 +11,7 @@ import jv.internetshop.service.ShoppingCartService;
 public class GetShoppingCartController extends HttpServlet {
     private static final String USER_ID = "user_id";
     private static final Injector INJECTOR = Injector.getInstance("jv");
-    private ShoppingCartService shoppingCartService =
+    private final ShoppingCartService shoppingCartService =
             (ShoppingCartService) INJECTOR.getInstance(ShoppingCartService.class);
 
     @Override

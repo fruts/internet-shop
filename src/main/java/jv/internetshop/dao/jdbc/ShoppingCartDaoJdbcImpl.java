@@ -94,7 +94,8 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
         try {
             deleteShoppingCartFromCartsProducts(id);
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DataProcessingException("Unable to delete shopping "
+                    + "cart from carts products", e);
         }
         try (Connection connection = ConnectionUtil.getConnection()) {
             var statement = connection.prepareStatement(query);

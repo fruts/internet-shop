@@ -17,11 +17,11 @@ import jv.internetshop.service.UserService;
 public class CompleteOrderController extends HttpServlet {
     private static final String USER_ID = "user_id";
     private static final Injector INJECTOR = Injector.getInstance("jv");
-    private static ShoppingCartService shoppingCartService =
+    private final ShoppingCartService shoppingCartService =
             (ShoppingCartService) INJECTOR.getInstance(ShoppingCartService.class);
-    private static OrderService orderService =
+    private final OrderService orderService =
             (OrderService) INJECTOR.getInstance(OrderService.class);
-    private static UserService userService =
+    private final UserService userService =
             (UserService) INJECTOR.getInstance(UserService.class);
 
     @Override
