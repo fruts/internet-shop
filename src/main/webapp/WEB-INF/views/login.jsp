@@ -4,7 +4,8 @@
     <title>Login</title>
 </head>
 <body>
-<h1>Login or register</h1>
+
+<h1>Login</h1>
 
 <h4 style="color: red">${errMsg}</h4>
 
@@ -15,8 +16,6 @@
 
     <button type="submit">Login</button>
 </form>
-<button type="button">
     <a href="/registration">Register</a>
-</button>
 </body>
 </html>
