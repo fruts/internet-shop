@@ -39,12 +39,13 @@ public class UserDaoJdbcImpl implements UserDao {
     @Override
     public User create(User user) {
         try (Connection connection = ConnectionUtil.getConnection()) {
-            String query = "INSERT INTO users (name, login, password) VALUES (?, ?, ?);";
+            String query = "INSERT INTO users (name, login, password, salt) VALUES (?, ?, ?, ?);";
             PreparedStatement statement = connection.prepareStatement(query,
                     PreparedStatement.RETURN_GENERATED_KEYS);
             statement.setString(1, user.getName());
             statement.setString(2, user.getLogin());
             statement.setString(3, user.getPassword());
+            statement.setBytes(4, user.getSalt());
             statement.executeUpdate();
             ResultSet resultSet = statement.getGeneratedKeys();
             if (resultSet.next()) {
@@ -96,13 +97,14 @@ public class UserDaoJdbcImpl implements UserDao {
     @Override
     public User update(User user) {
         try (Connection connection = ConnectionUtil.getConnection()) {
-            String query = "UPDATE users SET name = ?, login = ?, password = ? "
+            String query = "UPDATE users SET name = ?, login = ?, password = ?, salt = ? "
                     + "WHERE user_id = ?;";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, user.getName());
             statement.setString(2, user.getLogin());
             statement.setString(3, user.getPassword());
-            statement.setLong(4, user.getId());
+            statement.setBytes(4, user.getSalt());
+            statement.setLong(5, user.getId());
             statement.executeUpdate();
             deleteUserFromUsersRoles(user.getId());
             insertUsersRoles(user);
@@ -136,10 +138,13 @@ public class UserDaoJdbcImpl implements UserDao {
     }
 
     private User getUserByResultSet(ResultSet resultSet) throws SQLException {
-        return new User(resultSet.getLong("user_id"),
+        User user = new User(resultSet.getLong("user_id"),
                 resultSet.getString("name"),
                 resultSet.getString("login"),
                 resultSet.getString("password"));
+        byte[] salt = resultSet.getBytes("salt");
+        user.setSalt(salt);
+        return user;
     }
 
     private Set<Role> getUsersRolesById(Long userId) throws SQLException {

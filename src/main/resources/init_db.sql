@@ -6,15 +6,19 @@ CREATE TABLE `internet_shop`.`products`
     `price`      DECIMAL(10, 2) NOT NULL,
     PRIMARY KEY (`product_id`)
 );
-CREATE TABLE `internet_shop`.`users`
+CREATE TABLE `users`
 (
-    `user_id`  BIGINT(11)   NOT NULL AUTO_INCREMENT,
-    `name`     VARCHAR(225) NOT NULL,
-    `login`    VARCHAR(225) NOT NULL,
-    `password` VARCHAR(225) NOT NULL,
+    `user_id`  bigint         NOT NULL AUTO_INCREMENT,
+    `name`     varchar(225)   NOT NULL,
+    `login`    varchar(225)   NOT NULL,
+    `password` varchar(225)   NOT NULL,
+    `salt`     varbinary(500) NOT NULL,
     PRIMARY KEY (`user_id`),
-    UNIQUE INDEX `login_UNIQUE` (`login` ASC) VISIBLE
-);
+    UNIQUE KEY `login_UNIQUE` (`login`)
+) ENGINE = InnoDB
+  AUTO_INCREMENT = 22
+  DEFAULT CHARSET = utf8;
+
 CREATE TABLE `internet_shop`.`roles`
 (
     `role_id`   BIGINT(11)   NOT NULL AUTO_INCREMENT,
